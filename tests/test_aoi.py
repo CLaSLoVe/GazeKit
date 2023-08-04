@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from gazekit.aoi import *
-from gazekit.gaze_seq import *
+from gazekit.sequence import *
 
 
 class TestReadAOIIniFile(unittest.TestCase):
