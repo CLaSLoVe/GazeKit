@@ -4,32 +4,21 @@ from typing import List
 import numpy as np
 
 
-class Display:
-    def __int__(self, w, h):
-        self.w = w
-        self.h = h
-        self.area = w * h
-
-
 class AOI:
-    def __init__(self, x, y, w, h, name=None, panel=None, display=None):
-        assert (type(display) == Display) or (display is None)
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
+    def __init__(self, x, y, w, h, display, name, panel=None):
+        assert len(display) == 2
+        self.x = x/display[0]
+        self.y = y/display[1]
+        self.w = w/display[0]
+        self.h = h/display[1]
         self.name = name
         self.panel = panel
-        self.area = w * h
 
-        self.c = np.array([x+w/2, y+h/2])
-        self.r = np.array([w/2, h/2])
-
-        if display:
-            self.area_ratio = w * h / display.area
+        self.c = np.array([self.x+self.w/2, self.y+self.h/2])
+        self.r = np.array([self.w/2, self.h/2])
 
 
-def read_aoi_ini_file(file_path: str, display=None) -> List[AOI]:
+def read_aoi_ini_file(file_path: str, display) -> List[AOI]:
     if not os.path.isfile(file_path):
         raise FileNotFoundError("No [aoi].ini file!")
     # read ini
@@ -42,9 +31,9 @@ def read_aoi_ini_file(file_path: str, display=None) -> List[AOI]:
         y = int(config[section]['y'])
         w = int(config[section]['w'])
         h = int(config[section]['h'])
-        name = config[section]['name']
-        function = config[section]['function'].split(',') if config[section]['function'] else []
-        aoi = AOI(x, y, w, h, name, function, display)
+        name = section
+        p = config[section]['p'].split(',') if config[section]['p'] else []
+        aoi = AOI(x, y, w, h, display, name, p)
         aois.append(aoi)
     return aois
 

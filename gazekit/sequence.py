@@ -3,6 +3,7 @@ import pandas as pd
 from denoise import *
 from aoi import *
 import warnings
+from tools import *
 
 class Sequence:
     def __init__(self, x, y, t, d=None, aoi=None, history=None):
@@ -33,10 +34,11 @@ class Sequence:
         for aoi in aoi_list:
             centers.append(aoi.c)
             radius.append(aoi.r)
+        xy = seq.data[['x', 'y']].to_numpy()
         centers = np.array(centers)
         radius = np.array(radius)
-        aoi_array = (xy2aoi(xy, centers, radius))
-        self.data['aoi'] = aoi_array
+        aoi_array = xy2aoi(xy, centers, radius)
+        self.data['aoi'] = encode_bool_lists(aoi_array)
 
     def detect_fixations(self, min_duration=0.1, max_dispersion=0.0004):
         """Detect fixations from eye-tracking data."""
@@ -61,8 +63,9 @@ class Sequence:
 
 if __name__ == '__main__':
     data = np.genfromtxt('../tests/data.csv', delimiter=',', dtype=None, encoding=None)
+    aois = read_aoi_ini_file('../tests/aoi.ini', (2560, 1600))
     seq = Sequence(*data.T)
-    seq.loc_aoi()
+    seq.loc_aoi(aois)
     # seq_d = seq.denoise(XXXMethod, window_size=5, polyorder=3)
     # seq_f = seq_d.detect_fixations()
 
