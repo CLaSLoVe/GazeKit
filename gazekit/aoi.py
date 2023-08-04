@@ -20,7 +20,6 @@ class AOI:
 
         """
         assert len(display) == 2, "The display tuple must have exactly 2 elements."
-
         self.x = x / display[0]
         self.y = y / display[1]
         self.w = w / display[0]
@@ -58,18 +57,17 @@ def xy2aoi(xy: np.ndarray, centers: list, radius: list) -> np.ndarray:
 
 
 def read_aoi_ini_file(file_path: str, display) -> List[AOI]:
-    def read_aoi_ini_file(file_path: str, display) -> List[AOI]:
-        """
-        Read an AOI (.ini) file and return a list of AOI objects.
+    """
+    Read an AOI (.ini) file and return a list of AOI objects.
 
-        :param file_path: the path to the AOI (.ini) file.
-        :type file_path: str
-        :param display: the display object to use for converting coordinates from pixels to degrees of visual angle.
-        :type display: Display
-        :return: a list of AOI objects representing the areas of interest defined in the AOI file.
-        :rtype: list[AOI]
-        :raises FileNotFoundError: if the AOI file specified by `file_path` does not exist.
-        """
+    :param file_path: the path to the AOI (.ini) file.
+    :type file_path: str
+    :param display: the display object to use for converting coordinates from pixels to degrees of visual angle.
+    :type display: Display
+    :return: a list of AOI objects representing the areas of interest defined in the AOI file.
+    :rtype: list[AOI]
+    :raises FileNotFoundError: if the AOI file specified by `file_path` does not exist.
+    """
 
     if not os.path.isfile(file_path):
         raise FileNotFoundError(f"Could not find file: {file_path}")
@@ -85,7 +83,7 @@ def read_aoi_ini_file(file_path: str, display) -> List[AOI]:
         h = int(config[section]['h'])
         name = section
         p = config[section]['p'].split(',') if config[section]['p'] else []
-        aoi = AOI(x, y, w, h, display, name, p)
+        aoi = AOI(x, y, w, h, name, display, p)
         aois.append(aoi)
     return aois
 
