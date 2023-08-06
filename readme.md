@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your_username/GazeKit/blob/main/LICENSE)
 
-**GazeKit** is a Python library currently under development for **processing and analyzing** eye-tracking data. It aims to provide a comprehensive set of functions for noise reduction, area of interest (AOI) localization, data analysis, and plotting. This library is being developed to simplify the preprocessing and analysis of eye-tracking data, enabling researchers in psychology, neuroscience, and human-computer interaction to gain valuable insights into human visual cognitive processes.
+**GazeKit** is a Python library currently under development for processing and analyzing eye-tracking data. It aims to provide a comprehensive set of functions for noise reduction, area of interest (AOI) localization, data analysis, and plotting. This library is being developed to simplify the preprocessing and analysis of eye-tracking data, enabling researchers in psychology, neuroscience, and human-computer interaction to gain valuable insights into human visual cognitive processes.
 
 ## Features
 
@@ -54,6 +54,23 @@ heatmap = seq.plot(myfunc)
 ```
 
 For more detailed instructions and examples, please refer to the [documentation](https://github.com/your_username/GazeKit/wiki) (coming soon).
+
+## Configuration: aoi.ini
+
+The `aoi.ini` file is a configuration file that defines areas of interest (AOIs) within the eye-tracking data. It has a format similar to the following:
+
+```ini
+[AI]
+x = 880
+y = 700
+w = 430
+h = 455
+p = hi,tc
+```
+
+In the above example, `[AI]` is the name of the AOI. The `x`, `y`, `w`, and `h` parameters represent the starting point (x, y) and the width and height of the AOI, respectively. The `p` parameter represents the functionalities associated with the AOI and is specified as a list. In the example, `p = hi,tc` indicates that the AOI has functionalities for "highlight" and "text capture."
+
+When using GazeKit, make sure that your eye-tracking data file includes columns for `x`, `y`, and `t` (time) information.
 
 ## Contributing
 
