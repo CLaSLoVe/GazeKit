@@ -55,7 +55,7 @@ heatmap = seq.plot(myfunc)
 
 For more detailed instructions and examples, please refer to the [documentation](https://github.com/your_username/GazeKit/wiki) (coming soon).
 
-## Configuration: aoi.ini
+## Configuration
 
 The `aoi.ini` file is a configuration file that defines areas of interest (AOIs) within the eye-tracking data. It has a format similar to the following:
 
@@ -68,7 +68,7 @@ h = 455
 p = hi,tc
 ```
 
-In the above example, `[AI]` is the name of the AOI. The `x`, `y`, `w`, and `h` parameters represent the starting point (x, y) and the width and height of the AOI, respectively. The `p` parameter represents the functionalities associated with the AOI and is specified as a list. In the example, `p = hi,tc` indicates that the AOI has functionalities for "highlight" and "text capture."
+In the above example, `[AI]` is the name of the AOI. The `x`, `y`, `w`, and `h` parameters represent the starting point (x, y) and the width and height of the AOI, respectively. The `p` parameter represents the functionalities associated with the AOI and is specified as a list. In the example, `p = hi,tc` indicates that the AOI has functionalities for "hi" and "tc".
 
 When using GazeKit, make sure that your eye-tracking data file includes columns for `x`, `y`, and `t` (time) information.
 
