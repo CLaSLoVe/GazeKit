@@ -2,13 +2,13 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your_username/GazeKit/blob/main/LICENSE)
 
-**GazeKit** is a Python library currently under development for processing eye-tracking data. It aims to provide a comprehensive set of functions for noise reduction, area of interest (AOI) localization, data analysis, and plotting. This library is being developed to simplify the preprocessing and analysis of eye-tracking data, enabling researchers in psychology, neuroscience, and human-computer interaction to gain valuable insights into human visual cognitive processes.
+**GazeKit** is a Python library currently under development for **processing and analyzing** eye-tracking data. It aims to provide a comprehensive set of functions for noise reduction, area of interest (AOI) localization, data analysis, and plotting. This library is being developed to simplify the preprocessing and analysis of eye-tracking data, enabling researchers in psychology, neuroscience, and human-computer interaction to gain valuable insights into human visual cognitive processes.
 
 ## Features
 
-- **Noise Reduction:** GazeKit will offer advanced techniques for reducing noise in eye-tracking data, allowing for more accurate and reliable analysis.
+- **Noise Reduction:** GazeKit offers advanced techniques for reducing noise in eye-tracking data, allowing for more accurate and reliable analysis.
 - **AOI Localization:** Easily define and locate areas of interest (AOIs) within eye-tracking data, facilitating the analysis of gaze patterns and attentional focus.
-- **Data Analysis:** GazeKit will provide a range of analysis tools, including fixation duration, saccade detection, heatmaps, and scanpath visualization, empowering researchers to extract meaningful information from eye-tracking data.
+- **Data Analysis:** GazeKit provides a range of analysis tools, including fixation duration, saccade detection, heatmaps, and scanpath visualization, empowering researchers to extract meaningful information from eye-tracking data.
 - **Plotting:** Visualize eye-tracking data with customizable plots and graphs, enabling researchers to effectively communicate their findings.
 
 ## Installation
@@ -21,31 +21,33 @@ pip install gazekit
 
 ## Usage
 
-Once installed, you will be able to use GazeKit in your Python code. Here's a sneak peek at how GazeKit might be used for preprocessing and analyzing eye-tracking data:
+Once installed, you can use GazeKit in your Python code. Here's a sneak peek at how GazeKit might be used for preprocessing and analyzing eye-tracking data:
 
 ```python
-import gazekit
+import numpy as np
+from gazekit.aoi import read_aoi_ini_file
+from gazekit.sequence import Sequence
 
 # Load eye-tracking data
-data = gazekit.load_data('path/to/data.csv')
+data = np.genfromtxt('../tests/data.csv', delimiter=',', dtype=None, encoding=None)
 
-# Apply noise reduction techniques
-clean_data = gazekit.remove_noise(data)
+# Load AOIs
+aois = read_aoi_ini_file('../tests/aoi.ini', (2560, 1600))
 
-# Define areas of interest (AOIs)
-aois = gazekit.define_aois('path/to/aois.json')
+# Load data into GazeKit Sequence class
+seq = Sequence(*data.T)
+
+# Apply noise reduction techniques (under development)
+seq = seq.denoise(myfunc)
+
+# Detect fixations (under development)
+seq = seq.detect_fixations()
 
 # Locate AOIs within the data
-aoi_data = gazekit.locate_aois(clean_data, aois)
+seq = seq.loc_aoi(aois)
 
-# Calculate fixation duration
-fixation_duration = gazekit.calculate_fixation_duration(aoi_data)
-
-# Generate a heatmap
-heatmap = gazekit.generate_heatmap(clean_data)
-
-# Visualize scanpath
-gazekit.plot_scanpath(clean_data)
+# Generate a plot (under development)
+heatmap = seq.plot(myfunc)
 
 # ... Perform further analysis and visualization
 
